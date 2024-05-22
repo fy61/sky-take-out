@@ -19,4 +19,16 @@ public interface CategoryService extends IService<Category> {
      * @param id
      */
     void startOrStop(Integer status, Long id);
+
+    /**
+     * 新增菜品分类
+     * @param category
+     */
+    void insert(Category category);
+
+    /**
+     * 修改分类
+     * @param category
+     */
+    void updateByIdOne(Category category);
 }

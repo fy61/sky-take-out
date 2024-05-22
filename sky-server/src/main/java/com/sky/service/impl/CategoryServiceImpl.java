@@ -3,9 +3,10 @@ package com.sky.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sky.annotation.AutoFill;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
-import com.sky.entity.Employee;
+import com.sky.enumeration.OperationType;
 import com.sky.mapper.CategoryMapper;
 import com.sky.result.PageResult;
 import com.sky.service.CategoryService;
@@ -49,6 +50,26 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
                 .status(status)
                 .id(id)
                 .build();
+        categoryMapper.updateById(category);
+    }
+
+    /**
+     * 新增菜品分类
+     * @param category
+     */
+    @AutoFill(value = OperationType.INSERT)
+    @Override
+    public void insert(Category category) {
+        categoryMapper.insert(category);
+    }
+
+    /**
+     * 修改分类
+     * @param category
+     */
+    @AutoFill(value = OperationType.UPDATE)
+    @Override
+    public void updateByIdOne(Category category) {
         categoryMapper.updateById(category);
     }
 }

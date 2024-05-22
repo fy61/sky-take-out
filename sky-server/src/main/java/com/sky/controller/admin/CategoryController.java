@@ -1,9 +1,11 @@
 package com.sky.controller.admin;
 
 import com.baomidou.mybatisplus.extension.api.R;
+import com.sky.annotation.AutoFill;
 import com.sky.context.BaseContext;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
+import com.sky.enumeration.OperationType;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.CategoryService;
@@ -47,11 +49,11 @@ public class CategoryController {
     public Result save(@RequestBody Category category) {
         log.info("新增菜品参数为:{}", category);
         category.setStatus(1);
-        category.setCreateTime(LocalDateTime.now());
-        category.setUpdateTime(LocalDateTime.now());
-        category.setCreateUser(BaseContext.getCurrentId());
-        category.setUpdateUser(BaseContext.getCurrentId());
-        categoryService.save(category);
+//        category.setCreateTime(LocalDateTime.now());
+//        category.setUpdateTime(LocalDateTime.now());
+//        category.setCreateUser(BaseContext.getCurrentId());
+//        category.setUpdateUser(BaseContext.getCurrentId());
+        categoryService.insert(category);
         return Result.success();
     }
 
@@ -90,9 +92,10 @@ public class CategoryController {
      */
     @PutMapping
     @ApiOperation("修改分类")
+    @AutoFill(value = OperationType.UPDATE)
     public Result<String> update(@RequestBody Category category) {
         log.info("修改分类参数为:{}",category);
-        categoryService.updateById(category);
+        categoryService.updateByIdOne(category);
         return Result.success();
     }
 }
