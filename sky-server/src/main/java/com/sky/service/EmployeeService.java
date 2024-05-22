@@ -18,9 +18,9 @@ public interface EmployeeService extends IService<Employee> {
 
     /**
      * 新增员工
-     * @param employeeDTO
+     * @param employee
      */
-    void save(EmployeeDTO employeeDTO);
+    void saveOne(Employee employee);
 
     /**
      * 员工分页查询
@@ -34,4 +34,10 @@ public interface EmployeeService extends IService<Employee> {
      * @param id
      */
     void startOrStop(Integer status, Long id);
+
+    /**编辑员工信息
+     *
+     * @param employee
+     */
+    void updateByIdMP(Employee employee);
 }

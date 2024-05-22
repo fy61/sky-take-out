@@ -1,8 +1,5 @@
 package com.sky.controller.admin;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.api.R;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sky.constant.JwtClaimsConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
@@ -17,12 +14,10 @@ import com.sky.utils.JwtUtil;
 import com.sky.vo.EmployeeLoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,9 +85,14 @@ public class EmployeeController {
     @ApiOperation("新增员工")
     public Result save(@RequestBody EmployeeDTO employeeDTO) {
         log.info("新增员工,员工信息:{}", employeeDTO.toString());
-        employeeService.save(employeeDTO);
 
-        return Result.success(employeeDTO);
+        Employee employee = new Employee();
+        //使用對象的屬性拷貝
+        BeanUtils.copyProperties(employeeDTO, employee);
+
+        employeeService.saveOne(employee);
+
+        return Result.success(employee);
     }
 
     /**
@@ -135,17 +135,27 @@ public class EmployeeController {
     public Result<Employee> getById(@PathVariable String id) {
         log.info("根据员工id:{} 查询", id);
         Employee employee = employeeService.getById(id);
-        employee.setPassword("****");
         return Result.success(employee);
     }
 
+    /**
+     * 编辑员工信息
+     * @param employeeDTO
+     * @return
+     */
     @PutMapping
     @ApiOperation("编辑员工信息")
-    public Result update(@RequestBody Employee employee) {
-        log.info("编辑员工信息:{}", employee);
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(BaseContext.getCurrentId());
-        employeeService.updateById(employee);
+    public Result update(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("编辑员工信息:{}", employeeDTO);
+
+        Employee employee = new Employee();
+        //使用對象的屬性拷貝
+        BeanUtils.copyProperties(employeeDTO, employee);
+
+//       employee.setUpdateTime(LocalDateTime.now());
+//       employee.setUpdateUser(BaseContext.getCurrentId());
+
+        employeeService.updateByIdMP(employee);
         return Result.success();
     }
 
