@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
     @Autowired
-    CategoryMapper categoryMapper;
+    private CategoryMapper categoryMapper;
 
     /**
      * 分类管理分页查询
@@ -36,6 +36,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         long total = pageInfo.getTotal();
         List<Category> records = pageInfo.getRecords();
         return new PageResult(total, records);
+
     }
 
     /**

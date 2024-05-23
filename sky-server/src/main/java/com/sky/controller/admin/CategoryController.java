@@ -1,5 +1,6 @@
 package com.sky.controller.admin;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.sky.annotation.AutoFill;
 import com.sky.context.BaseContext;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 分类管理
@@ -74,6 +76,7 @@ public class CategoryController {
 
     /**
      * 删除分类
+     *
      * @param id
      * @return
      */
@@ -87,6 +90,7 @@ public class CategoryController {
 
     /**
      * 修改分类
+     *
      * @param category
      * @return
      */
@@ -94,8 +98,17 @@ public class CategoryController {
     @ApiOperation("修改分类")
     @AutoFill(value = OperationType.UPDATE)
     public Result<String> update(@RequestBody Category category) {
-        log.info("修改分类参数为:{}",category);
+        log.info("修改分类参数为:{}", category);
         categoryService.updateByIdOne(category);
         return Result.success();
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("根据菜品查询分类")
+    public Result<List<Category>> selectBytype(Integer type) {
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Category::getType,type);
+        List<Category> list = categoryService.list(queryWrapper);
+        return Result.success(list);
     }
 }
