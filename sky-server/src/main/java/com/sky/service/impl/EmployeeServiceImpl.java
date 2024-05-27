@@ -102,6 +102,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper,Employee> im
         long total = pageInfo.getTotal();
         List<Employee> records = pageInfo.getRecords();
         return new PageResult(total,records);
+
+
     }
 
     /**

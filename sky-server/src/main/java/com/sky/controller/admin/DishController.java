@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.sky.annotation.AutoFill;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
+import com.sky.entity.Category;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
 import com.sky.enumeration.OperationType;
@@ -101,6 +102,7 @@ public class DishController {
 
     /**
      * 菜品批量删除
+     *
      * @param ids
      * @return
      */
@@ -114,6 +116,7 @@ public class DishController {
 
     /**
      * 根据id查询菜品
+     *
      * @param id
      * @return
      */
@@ -127,6 +130,7 @@ public class DishController {
 
     /**
      * 修改菜品
+     *
      * @param dishDTO
      * @return
      */
@@ -137,30 +141,39 @@ public class DishController {
 
         //复制相应属性
         Dish dish = new Dish();
-        BeanUtils.copyProperties(dishDTO,dish);
+        BeanUtils.copyProperties(dishDTO, dish);
         List<DishFlavor> dishFlavors = dishDTO.getFlavors();
 
         dishService.updateWithFlavor(dish);
 
         //删除原有的口味数据
         LambdaQueryWrapper<DishFlavor> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(DishFlavor::getDishId,dish.getId());
+        queryWrapper.eq(DishFlavor::getDishId, dish.getId());
 
         dishFlavorService.remove(queryWrapper);
 
         //重新插入口味数据
         if (dishFlavors != null && dishFlavors.size() > 0) {
-            dishFlavors.stream().map((dishFlavor) ->{
+            dishFlavors.stream().map((dishFlavor) -> {
 
                 dishFlavor.setDishId(dish.getId());
 
                 return dishFlavor;
 
-            } ).collect(Collectors.toList());
+            }).collect(Collectors.toList());
         }
 
         dishFlavorService.saveBatch(dishFlavors);
 
         return Result.success();
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("根据分类id查询菜品")
+    public Result<List<Dish>> list(Long categoryId) {
+        LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Dish::getCategoryId,categoryId);
+        List<Dish> list = dishService.list(queryWrapper);
+        return Result.success(list);
     }
 }
