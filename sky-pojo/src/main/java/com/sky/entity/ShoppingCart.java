@@ -48,6 +48,6 @@ public class ShoppingCart implements Serializable {
     //图片
     private String image;
 
-    @TableField(value = "create_time",fill = FieldFill.INSERT_UPDATE)
+//    @TableField(value = "create_time",fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime createTime;
 }

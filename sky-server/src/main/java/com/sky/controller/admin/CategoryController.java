@@ -104,11 +104,10 @@ public class CategoryController {
     }
 
     @GetMapping("/list")
-    @ApiOperation("根据菜品查询分类")
+    @ApiOperation("根据类型查询分类")
     public Result<List<Category>> selectBytype(Integer type) {
-        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Category::getType,type);
-        List<Category> list = categoryService.list(queryWrapper);
+
+        List<Category> list = categoryService.listOne(type);
         return Result.success(list);
     }
 }

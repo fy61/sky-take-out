@@ -1,3 +1,4 @@
+/*
 package com.sky.aspect;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
@@ -9,9 +10,11 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+*/
 /**
  * 自定义元数据对象处理器
- */
+ *//*
+
 @Component
 @Slf4j
 public class MyMetaObjecthandler implements MetaObjectHandler {
@@ -22,10 +25,17 @@ public class MyMetaObjecthandler implements MetaObjectHandler {
         LocalDateTime now = LocalDateTime.now();
         Long currentId = BaseContext.getCurrentId();
 
-        metaObject.setValue(AutoFillConstant.SET_CREATE_TIME, now);
+
+*/
+/*        metaObject.setValue(AutoFillConstant.SET_CREATE_TIME, now);
         metaObject.setValue(AutoFillConstant.SET_CREATE_USER, currentId);
         metaObject.setValue(AutoFillConstant.SET_UPDATE_TIME, now);
-        metaObject.setValue(AutoFillConstant.SET_UPDATE_USER, currentId);
+        metaObject.setValue(AutoFillConstant.SET_UPDATE_USER, currentId);*//*
+
+        this.setFieldValByName(AutoFillConstant.SET_CREATE_TIME, now,metaObject);
+        this.setFieldValByName(AutoFillConstant.SET_CREATE_USER, currentId,metaObject);
+        this.setFieldValByName(AutoFillConstant.SET_UPDATE_TIME, now,metaObject);
+        this.setFieldValByName(AutoFillConstant.SET_UPDATE_USER, currentId,metaObject);
 
     }
 
@@ -35,8 +45,9 @@ public class MyMetaObjecthandler implements MetaObjectHandler {
         //准备赋值的数据
         LocalDateTime now = LocalDateTime.now();
         Long currentId = BaseContext.getCurrentId();
-        metaObject.setValue(AutoFillConstant.SET_UPDATE_TIME, now);
-        metaObject.setValue(AutoFillConstant.SET_UPDATE_USER, currentId);
+        this.setFieldValByName(AutoFillConstant.SET_UPDATE_TIME, now,metaObject);
+        this.setFieldValByName(AutoFillConstant.SET_UPDATE_USER, currentId,metaObject);
 
     }
 }
+*/

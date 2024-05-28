@@ -34,16 +34,16 @@ public class Employee implements Serializable {
 
     private Integer status;
 
-    @TableField(value = "create_time",fill = FieldFill.INSERT_UPDATE)
+//    @TableField(value = "create_time",fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime createTime;
 
-    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+//    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
-    @TableField(value = "create_user",fill = FieldFill.INSERT_UPDATE)
+//    @TableField(value = "create_user",fill = FieldFill.INSERT_UPDATE)
     private Long createUser;
 
-    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+//    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
 
 }

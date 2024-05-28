@@ -41,16 +41,16 @@ public class Dish implements Serializable {
     //0 停售 1 起售
     private Integer status;
 
-    @TableField(value = "create_time",fill = FieldFill.INSERT_UPDATE)
+//    @TableField(value = "create_time",fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime createTime;
 
-    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+//    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
-    @TableField(value = "create_user",fill = FieldFill.INSERT_UPDATE)
+//    @TableField(value = "create_user",fill = FieldFill.INSERT_UPDATE)
     private Long createUser;
 
-    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+//    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
 
 }

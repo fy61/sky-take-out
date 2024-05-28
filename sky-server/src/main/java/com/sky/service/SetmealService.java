@@ -40,4 +40,11 @@ public interface SetmealService extends IService<Setmeal> {
      * @param setmealDTO
      */
     void updateOne(SetmealDTO setmealDTO);
+
+    /**
+     * 套餐起售停售
+     * @param status
+     * @param id
+     */
+    void startOrStop(Integer status, Long id);
 }

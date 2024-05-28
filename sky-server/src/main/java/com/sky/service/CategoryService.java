@@ -5,6 +5,8 @@ import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
 import com.sky.result.PageResult;
 
+import java.util.List;
+
 public interface CategoryService extends IService<Category> {
     /**
      * 分类管理分页查询
@@ -31,4 +33,11 @@ public interface CategoryService extends IService<Category> {
      * @param category
      */
     void updateByIdOne(Category category);
+
+    /**
+     * 根据类型查询分类
+     * @param type
+     * @return
+     */
+    List<Category> listOne(Integer type);
 }

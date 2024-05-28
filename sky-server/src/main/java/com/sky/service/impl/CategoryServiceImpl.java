@@ -10,12 +10,14 @@ import com.sky.enumeration.OperationType;
 import com.sky.mapper.CategoryMapper;
 import com.sky.result.PageResult;
 import com.sky.service.CategoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
@@ -72,5 +74,18 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Override
     public void updateByIdOne(Category category) {
         categoryMapper.updateById(category);
+    }
+
+    /**
+     * 根据类型查询分类
+     * @param type
+     * @return
+     */
+    @Override
+    public List<Category> listOne(Integer type) {
+        log.info("分类为:{}",type);
+/*        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(type != null,Category::getType,type);*/
+        return categoryMapper.listOne(type);
     }
 }
