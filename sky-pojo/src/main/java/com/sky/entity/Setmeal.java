@@ -1,5 +1,7 @@
 package com.sky.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,11 +41,15 @@ public class Setmeal implements Serializable {
     //图片
     private String image;
 
+    @TableField(value = "create_time",fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime createTime;
 
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
+    @TableField(value = "create_user",fill = FieldFill.INSERT_UPDATE)
     private Long createUser;
 
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
 }
