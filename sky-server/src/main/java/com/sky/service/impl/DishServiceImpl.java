@@ -15,6 +15,7 @@ import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetmealDishMapper;
 import com.sky.result.PageResult;
+import com.sky.result.Result;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
 import lombok.extern.slf4j.Slf4j;
@@ -145,5 +146,24 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
         //修改菜品表基本信息
         dishMapper.updateById(dish);
 
+    }
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<Dish> listOne(Long categoryId) {
+        Dish dish = Dish.builder()
+                .categoryId(categoryId)
+                .status(StatusConstant.ENABLE)
+                .build();
+        LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(dish.getCategoryId() != null, Dish::getCategoryId, dish.getCategoryId());
+        queryWrapper.eq(dish.getStatus() != null, Dish::getStatus, dish.getStatus());
+        queryWrapper.eq(dish.getName() != null, Dish::getName, dish.getName());
+        return dishMapper.selectList(queryWrapper);
+        
     }
 }

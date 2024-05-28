@@ -122,18 +122,10 @@
                 <artifactId>wechatpay-apache-httpclient</artifactId>
                 <version>0.4.8</version>
             </dependency>
-
-            <!-- mpj 依赖 -->
-            <dependency>
-                <groupId>com.github.yulichang</groupId>
-                <artifactId>mybatis-plus-join-boot-starter</artifactId>
-                <version>1.4.5</version>
-            </dependency>
-            <!-- mp 依赖 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.5.3.1</version>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>3.4.1</version>
             </dependency>
 
 

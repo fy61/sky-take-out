@@ -61,11 +61,11 @@ public class SetmealController {
         setmealService.saveOne(setmeal);
 
         Long id = setmeal.getId();
-        List<SetmealDish> stealDishes = setmealDTO.getStealDishes();
+        List<SetmealDish> stealDishes = setmealDTO.getSetmealDishes();
 
         if (stealDishes != null && stealDishes.size() > 0) {
             stealDishes.stream().map((setmealDish) -> {
-                setmealDish.setDishId(id);
+                setmealDish.setSetmealId(id);
                 return setmealDish;
             }).collect(Collectors.toList());
 
@@ -79,13 +79,52 @@ public class SetmealController {
     @ApiOperation("分页查询")
     public Result<PageResult> page(SetmealPageQueryDTO setmealPageQueryDTO) {
         log.info("套餐分页查询 参数为{}", setmealPageQueryDTO);
-/*
-        List<SetmealVO> setmealVOS = new ArrayList<>();//准备好的集合字段
+
+/*        List<SetmealVO> setmealVOS = new ArrayList<>();//准备好的集合字段
         List<Setmeal> setmeals = setmealService.list();
         for (Setmeal setmeal: setmeals) {
             Category category = categoryService.getById(setmeal.getCategoryId());
-        }*/
+        }
+        */
+
         PageResult pageResult = setmealService.pageQuery(setmealPageQueryDTO);
+        return Result.success(pageResult);
+    }
+
+    /**
+     * 批量删除套餐
+     *
+     * @return
+     */
+    @DeleteMapping()
+    @ApiOperation("批量删除套餐")
+    public Result delete(@RequestParam List<Long> ids) {
+        setmealService.deleteBatch(ids);
+        return Result.success();
+    }
+
+    /**
+     * 根据id查询套餐
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/id")
+    @ApiOperation("根据id查询套餐")
+    public Result<SetmealVO> getById(@PathVariable Long id) {
+        SetmealVO setmealVO = setmealService.getByIdWithDish(id);
+        return Result.success();
+    }
+
+    /**
+     * 修改套餐
+     * @param setmealDTO
+     * @return
+     */
+    @PutMapping()
+    @ApiOperation("修改套餐")
+    public Result update(@RequestBody SetmealDTO setmealDTO) {
+        setmealService.updateOne(setmealDTO);
         return Result.success();
     }
 }

@@ -48,4 +48,11 @@ public interface DishService extends IService<Dish> {
      * @param dish
      */
     void updateWithFlavor(Dish dish);
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    List<Dish> listOne(Long categoryId);
 }

@@ -171,9 +171,7 @@ public class DishController {
     @GetMapping("/list")
     @ApiOperation("根据分类id查询菜品")
     public Result<List<Dish>> list(Long categoryId) {
-        LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Dish::getCategoryId,categoryId);
-        List<Dish> list = dishService.list(queryWrapper);
+        List<Dish> list = dishService.listOne(categoryId);
         return Result.success(list);
     }
 }
